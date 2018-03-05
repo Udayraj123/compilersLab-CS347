@@ -11,7 +11,7 @@
  *            What will happen if we remove the second rule?
  */
 %{
-//Indentation matters below, or include the code in these tags
+//Indentation matters below, or include the code in these tags <<- Because indented text is copied as is to the c file 
 int num_chars = 0;
 %}
 

@@ -1,14 +1,5 @@
 /* scanner for a toy Pascal-like language 
 * DECLARE REGION
-* Start conditions - States of the finite automaton
-* // in declare region -
-* %s myStartState
-* // in rules -
-* <myStartState> {
-* 	regex_pattern action();
-* }
-* 
-* Start conditions are declared in the definitions (first) section of the input using unindented lines beginning with either `%s' inclusive) or `%x' (exclusive condition - active only when present alone) followed by a list of names. 
 */
 
 %{
@@ -18,7 +9,8 @@
 
 DIGIT    [0-9]
 ID       [a-z][a-z0-9]*
-
+    /* Comments in Flex are done using indent and comment */
+    /*You must indent every line of the comment. Indented text is copied verbatim to the generated file, but a comment is a comment.*/
 %%
 
 %{
@@ -33,6 +25,7 @@ valid "expressions" -
 [:cntrl:] [:digit:] [:graph:]
 [:lower:] [:print:] [:punct:]
 [:space:] [:upper:] [:xdigit:]
+To match end-of-file, use the special pattern <<EOF>
 
 Note: A negated character class such as the example "[^A-Z]" above will match a newline unless "\n" (or an equivalent escape sequence) is one of the characters explicitly present in the negated character class (e.g., "[^A-Z\n]"). This is unlike how many other regular expression tools treat negated character classes, but unfortunately the inconsistency is historically entrenched. 
 Matching newlines means that a pattern like [^"]* can match the entire input unless there's another quote in the input. 
